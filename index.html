@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUILTY - The Power You Shouldn't Have</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font for clean modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Define the futuristic color palette and typography */
+        :root {
+            --midnight: #030712;
+            --charcoal: #111827;
+            --cyan: #00E5FF;
+            --shadow-cyan: 0 0 15px 5px rgba(0, 229, 255, 0.4);
+            --shadow-cyan-hover: 0 0 25px 10px rgba(0, 229, 255, 0.6);
+            --shadow-grey: 0 0 10px 3px rgba(156, 163, 175, 0.3); /* For Inquire button */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--midnight);
+            color: #E5E7EB; /* Light grey text */
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Custom Styles for non-standard layout and dynamics */
+
+        /* Floating, sleek navigation bar */
+        .floating-nav {
+            transition: top 0.3s ease-in-out;
+            backdrop-filter: blur(10px);
+            background-color: rgba(3, 7, 18, 0.8);
+        }
+
+        /* CTA Button Glow and Hover Transition (for all primary buttons) */
+        .cta-button {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: var(--shadow-cyan);
+            background-color: var(--cyan);
+            color: var(--midnight);
+        }
+        
+        /* RESTORING CSS HOVER for Scale and Glow on BUTTONS */
+        .cta-button:hover {
+            box-shadow: var(--shadow-cyan-hover);
+            transform: scale(1.05); /* Reliable scale on hover */
+        }
+
+        /* Styling for the secondary "Inquire" button */
+        .inquire-button {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background-color: #374151; /* bg-gray-700 */
+            color: #D1D5DB; /* text-gray-300 */
+        }
+        .inquire-button:hover {
+            background-color: #4B5563; /* hover:bg-gray-600 */
+            transform: scale(1.05); /* Reliable scale on hover */
+            box-shadow: var(--shadow-grey);
+        }
+
+        /* NEW: Community Button Styling */
+        .discord-nav-button {
+            transition: all 0.3s;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+            background-color: var(--cyan);
+            color: var(--midnight);
+        }
+        .discord-nav-button:hover {
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.6);
+            transform: scale(1.05);
+            background-color: var(--cyan); /* Ensure color stays cyan on hover */
+        }
+
+        /* 3D Tilt Effect Base Class (ONLY for Hero CTA and Product Card containers) */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            /* Important: Ensure transition is smooth for JS-driven transforms */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; 
+            will-change: transform; /* Performance optimization */
+        }
+
+        /* Continuous Scrolling for Verdicts */
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Scrolls half the width of content, making it seamless */
+        }
+
+        .verdict-carousel {
+            animation: scroll-left 40s linear infinite;
+        }
+
+        /* Custom Asymmetrical/Angled Grid Section Separator */
+        .angled-separator {
+            /* Create the angled clipping path */
+            clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+            /* Creates the overlap with the section above it */
+            margin-top: -8vh; 
+            /* IMPORTANT: No margin-bottom to ensure the footer is not clipped */
+        }
+
+        /* 3D Visual Pulsating Effect */
+        @keyframes pulse-glow {
+            0%, 100% { filter: drop-shadow(0 0 10px var(--cyan)) brightness(1.2); }
+            50% { filter: drop-shadow(0 0 25px var(--cyan)) brightness(1.5); }
+        }
+
+        .pulsating-visual {
+            animation: pulse-glow 3s infinite ease-in-out;
+            transform: rotateY(15deg); /* Subtle initial 3D tilt */
+        }
+
+        /* Guide Tab Styles */
+        .guide-tab {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        /* Active tab styling (border and shadow) */
+        .guide-tab.active {
+            border: 1px solid var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+            background-color: #111827; /* Darker background for active tab */
+        }
+        /* Inactive tab hover styling */
+        .guide-tab:not(.active):hover {
+            border-color: rgba(0, 229, 255, 0.5);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Nav Bar - Floating and Sleek -->
+    <nav id="nav" class="floating-nav fixed top-0 w-full z-50 py-4 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-xl font-bold tracking-widest text-white hover:text-cyan-400 transition duration-300">GUILTY.</a>
+            
+            <!-- Navigation Links and Buttons -->
+            <div class="hidden md:flex items-center space-x-6 text-sm uppercase font-medium">
+                <a href="#guide" class="hover:text-cyan-400 transition duration-300">The Guide</a>
+                <a href="#tools" class="hover:text-cyan-400 transition duration-300">The Tools</a>
+                <a href="#verdicts" class="hover:text-cyan-400 transition duration-300">Verdicts</a>
+
+                <!-- RE-ADDED JOIN COMMUNITY BUTTON (TEXT ONLY) -->
+                <a href="https://discord.gg/9ht3vqUkCm" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full font-bold transition discord-nav-button text-sm">
+                    JOIN COMMUNITY
+                </a>
+                
+                <!-- Existing Get Started Button -->
+                <a href="#tools" class="px-4 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-midnight transition duration-300">Get Started</a>
+            </div>
+            <!-- Mobile Menu Placeholder -->
+            <button class="md:hidden text-cyan-400 text-2xl">☰</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- A. Pro Landing Page (Hero Section) -->
+        <section id="hero" class="relative min-h-screen pt-32 pb-16 overflow-hidden flex items-center justify-center">
+            
+            <!-- Parallax Layer 1: Background Grid Effect -->
+            <div id="parallax-bg" class="absolute inset-0 bg-repeat opacity-20" style="background-image: radial-gradient(var(--charcoal) 1px, transparent 1px), radial-gradient(var(--charcoal) 1px, transparent 1px); background-size: 40px 40px; transform: scale(1.1);"></div>
+            
+            <div class="max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-12 items-center relative z-10">
+                
+                <!-- Left Side: Headline and CTA (Foreground Parallax Layer) -->
+                <div id="parallax-text" class="space-y-6 md:space-y-10 order-2 md:order-1 transform translate-y-0" data-speed="0.8">
+                    <p class="text-lg md:text-xl text-cyan-400 uppercase tracking-[0.3em] font-medium">The Next Generation</p>
+                    <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight">
+                        The Power You <span class="text-cyan-400">Shouldn't</span> Have.
+                    </h1>
+                    <p class="text-gray-400 max-w-lg text-lg">
+                        Unleash capabilities beyond the standard. GUILTY is engineered for professionals who demand the impossible, built with pure minimalist design and rebellious tech core.
+                    </p>
+                    <!-- HERO CTA: Keeps tilt-card class for JS tilt -->
+                    <a href="#tools" class="inline-block px-10 py-4 rounded-full font-bold uppercase tracking-wider cta-button tilt-card" data-tilt>
+                        GET GUILTY NOW
+                    </a>
+                </div>
+
+                <!-- Right Side: 3D Visual Placeholder (Mid-ground Parallax Layer) -->
+                <div id="parallax-visual" class="flex justify-center md:justify-end order-1 md:order-2 transform translate-y-0" data-speed="0.5">
+                    <!-- High-quality placeholder image with only the bolded brand name -->
+                    <img src="https://placehold.co/400x400/030712/00E5FF/png?text=GUILTY&font=montserrat&font-size=48" 
+                         alt="Abstract 3D Core Asset" 
+                         class="w-64 h-64 md:w-96 md:h-96 rounded-3xl object-cover pulsating-visual shadow-2xl"
+                         style="box-shadow: var(--shadow-cyan);"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x400/374151/D1D5DB?text=Error%20Image';">
+                </div>
+
+            </div>
+        </section>
+
+        <!-- B. The Guide (How-To/Documentation Section) -->
+        <section id="guide" class="py-24 bg-gray-900 angled-separator">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center tracking-tight">The <span class="text-cyan-400">Guide.</span> Master Your Tool.</h2>
+                
+                <!-- Tabbed/Accordion Interface for Tutorials -->
+                <div class="grid lg:grid-cols-3 gap-10">
+                    
+                    <!-- LEFT COLUMN: Guide Tabs -->
+                    <div class="lg:col-span-1 space-y-4" id="guide-tabs-container">
+                        
+                        <!-- Tab 1: Initialization Protocol (Active by default) -->
+                        <div class="guide-tab active bg-gray-950 p-6 rounded-xl border border-gray-950 shadow-xl" data-tab="tab-1">
+                            <h3 class="text-xl font-semibold text-cyan-400">01. Initialization Protocol</h3>
+                            <p class="text-sm mt-2 text-gray-400">Step-by-step text guide for setup and first-run configuration. Focus on efficiency and security settings.</p>
+                        </div>
+                        
+                        <!-- Tab 2: Advanced Automation -->
+                        <div class="guide-tab bg-gray-950 p-6 rounded-xl border border-gray-950 hover:border-cyan-400/50 transition duration-300" data-tab="tab-2">
+                            <h3 class="text-xl font-semibold">02. Advanced Automation</h3>
+                            <p class="text-sm mt-2 text-gray-500">Video placeholder for scripting and complex workflow integration.</p>
+                        </div>
+                        
+                        <!-- Tab 3: Edge Case Scenarios -->
+                        <div class="guide-tab bg-gray-950 p-6 rounded-xl border border-gray-950 hover:border-cyan-400/50 transition duration-300" data-tab="tab-3">
+                            <h3 class="text-xl font-semibold">03. Edge Case Scenarios</h3>
+                            <p class="text-sm mt-2 text-gray-500">Detailed documentation on debugging and maximizing performance under load.</p>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: Guide Content -->
+                    <div class="lg:col-span-2 bg-gray-950 p-8 rounded-2xl shadow-2xl relative" id="guide-content-container">
+                        
+                        <!-- Content for Tab 1: Initialization Protocol -->
+                        <div class="guide-content" data-content="tab-1">
+                            <!-- Content Area: Embedded Video Placeholder -->
+                            <div class="aspect-video bg-black flex items-center justify-center rounded-lg border-4 border-cyan-400/50 mb-6">
+                                <p class="text-cyan-400/80">VIDEO TUTORIAL EMBED PLACEHOLDER: SETUP</p>
+                            </div>
+                            <h4 class="text-3xl font-bold mb-4 text-cyan-400">Core Setup: Initialization Protocol</h4>
+                            <p class="text-gray-400 leading-relaxed">
+                                To begin, ensure your system meets the minimum requirements listed in the documentation. The initial setup is crucial for optimal performance. The first step involves cryptographic key generation, followed by linking your core environment. This process is designed to be seamless but requires careful attention to the console output. Once complete, you will have access to the full, uncompromised power of the GUILTY suite.
+                            </p>
+                            <ul class="list-disc list-inside text-gray-400 mt-4 space-y-1 ml-4">
+                                <li><span class="text-cyan-400">Step 1:</span> Validate system architecture and dependencies.</li>
+                                <li><span class="text-cyan-400">Step 2:</span> Initiate secure handshake via terminal command.</li>
+                                <li><span class="text-cyan-400">Step 3:</span> Deploy configuration assets and establish core connection.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Content for Tab 2: Advanced Automation (Hidden by default) -->
+                        <div class="guide-content hidden" data-content="tab-2">
+                            <div class="aspect-video bg-black flex items-center justify-center rounded-lg border-4 border-cyan-400/50 mb-6">
+                                <p class="text-cyan-400/80">VIDEO TUTORIAL EMBED PLACEHOLDER: AUTOMATION</p>
+                            </div>
+                            <h4 class="text-3xl font-bold mb-4 text-cyan-400">Scripting: Advanced Automation</h4>
+                            <p class="text-gray-400 leading-relaxed">
+                                Go beyond basic functions by utilizing our custom scripting engine. Advanced automation allows you to create complex, multi-step workflows that run autonomously, maximizing your efficiency and minimizing manual intervention. Refer to the syntax guide for available commands and triggers.
+                            </p>
+                            <ul class="list-disc list-inside text-gray-400 mt-4 space-y-1 ml-4">
+                                <li><span class="text-cyan-400">Macro 1:</span> Dynamic Resource Allocation.</li>
+                                <li><span class="text-cyan-400">Macro 2:</span> Sequential Task Execution.</li>
+                                <li><span class="text-cyan-400">Macro 3:</span> Event-Driven Response Systems.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Content for Tab 3: Edge Case Scenarios (Hidden by default) -->
+                        <div class="guide-content hidden" data-content="tab-3">
+                            <div class="aspect-video bg-black flex items-center justify-center rounded-lg border-4 border-cyan-400/50 mb-6">
+                                <p class="text-cyan-400/80">VIDEO TUTORIAL EMBED PLACEHOLDER: DEBUGGING</p>
+                            </div>
+                            <h4 class="text-3xl font-bold mb-4 text-cyan-400">Troubleshooting: Edge Case Scenarios</h4>
+                            <p class="text-gray-400 leading-relaxed">
+                                While GUILTY is engineered for stability, extreme usage environments can lead to unique scenarios. This section covers advanced debugging techniques, performance bottlenecks under heavy load, and how to utilize the integrated diagnostic tools for rapid issue resolution.
+                            </p>
+                            <ul class="list-disc list-inside text-gray-400 mt-4 space-y-1 ml-4">
+                                <li><span class="text-cyan-400">Issue A:</span> Memory Leak Detection.</li>
+                                <li><span class="text-cyan-400">Issue B:</span> Asynchronous Thread Locking.</li>
+                                <li><span class="text-cyan-400">Issue C:</span> Network Latency Compensation.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- C. The Tools (Buy/Product Section) -->
+        <section id="tools" class="py-24">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center tracking-tight">The <span class="text-cyan-400">Tools.</span> Acquire Power.</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Product Card 1: Standard (Tilt Card) -->
+                    <div class="bg-gray-900 rounded-xl p-6 tilt-card" data-tilt>
+                        <h3 class="text-3xl font-extrabold text-white mb-2">GUILTY / Standard</h3>
+                        <p class="text-cyan-400 text-xl font-bold mb-4">$299</p>
+                        <p class="text-gray-400 min-h-[5rem]">The essential core tool for the modern professional. Fast, reliable, and beautifully engineered.</p>
+                        <ul class="text-sm text-gray-400 space-y-1 mt-4 border-t border-gray-700 pt-4">
+                            <li>✓ Core Automation Suite</li>
+                            <li>✓ 1-Year Updates</li>
+                            <li>✓ Standard Support Protocol</li>
+                        </ul>
+                        <!-- Button: Uses CSS hover for scale/glow -->
+                        <button class="w-full mt-6 py-3 rounded-xl font-bold uppercase cta-button">BUY NOW</button>
+                    </div>
+
+                    <!-- Product Card 2: Pro (Featured Tilt Card) -->
+                    <div class="bg-gray-950 rounded-xl p-8 shadow-2xl border-2 border-cyan-600 tilt-card" data-tilt>
+                        <div class="text-sm font-bold uppercase tracking-widest bg-cyan-600 text-midnight inline-block px-3 py-1 rounded-full mb-3 -mt-2">PRO</div>
+                        <h3 class="text-4xl font-extrabold text-white mb-2">GUILTY / PRO</h3>
+                        <p class="text-cyan-400 text-2xl font-bold mb-4">$599</p>
+                        <p class="text-gray-400 min-h-[5rem]">Unlock the full, uncompromised suite. Unlimited bandwidth, advanced configuration options, and zero throttle.</p>
+                        <ul class="text-sm text-gray-300 space-y-1 mt-4 border-t border-cyan-400 pt-4">
+                            <li>✓ **Unrestricted** Automation Suite</li>
+                            <li>✓ Lifetime Updates & Patches</li>
+                            <li>✓ Priority 24/7 White-Glove Support</li>
+                        </ul>
+                        <!-- Button: Uses CSS hover for scale/glow -->
+                        <button class="w-full mt-6 py-4 rounded-xl font-bold uppercase cta-button text-xl">BUY NOW</button>
+                    </div>
+
+                    <!-- Product Card 3: Enterprise (Tilt Card) -->
+                    <div class="bg-gray-900 rounded-xl p-6 tilt-card" data-tilt>
+                        <h3 class="text-3xl font-extrabold text-white mb-2">GUILTY / Enterprise</h3>
+                        <p class="text-cyan-400 text-xl font-bold mb-4">Contact Sales</p>
+                        <p class="text-gray-400 min-h-[5rem]">Tailored for large organizations. Scalable, self-hosted, and compliant with all regulatory frameworks.</p>
+                        <ul class="text-sm text-gray-400 space-y-1 mt-4 border-t border-gray-700 pt-4">
+                            <li>✓ Dedicated On-Premise Solution</li>
+                            <li>✓ Custom Feature Development</li>
+                            <li>✓ Dedicated Account Manager</li>
+                        </ul>
+                        <!-- Button: Uses dedicated CSS class for scale/glow -->
+                        <button class="w-full mt-6 py-3 rounded-xl font-bold uppercase inquire-button">INQUIRE</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- D. Verdicts (Review Section) -->
+        <!-- NOTE: Removed angled-separator class to ensure footer sits cleanly below -->
+        <section id="verdicts" class="py-24 bg-gray-900">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center tracking-tight">The <span class="text-cyan-400">Verdicts.</span> Social Proof.</h2>
+
+                <!-- Visually Striking Continuous Scrolling Carousel -->
+                <div class="overflow-hidden whitespace-nowrap py-4 relative">
+                    <div class="verdict-carousel inline-block w-max">
+                        
+                        <!-- Duplicate the reviews group to ensure seamless looping and symmetry -->
+                        <div class="flex space-x-8">
+                            <!-- Review Card 1 -->
+                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
+                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
+                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-20 overflow-hidden border-b border-gray-700">"The 3D tilt is a nice touch, but the core functionality is what matters. It's truly revolutionary. My productivity jumped 40%."</blockquote>
+                                <p class="text-cyan-400 font-semibold">— Alex D. (<span class="text-xs text-gray-500">PRO User</span>)</p>
+                            </div>
+
+                            <!-- Review Card 2 -->
+                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
+                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
+                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-20 overflow-hidden border-b border-gray-700">"Sleekest UI I've ever seen on a utility tool. It feels illegal to use something this powerful and elegant."</blockquote>
+                                <p class="text-cyan-400 font-semibold">— CreativeAnon (<span class="text-xs text-gray-500">Standard User</span>)</p>
+                            </div>
+                            
+                            <!-- Review Card 3 -->
+                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
+                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
+                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-20 overflow-hidden border-b border-gray-700">"I tried the competition, but GUILTY's Parallax depth and performance throttling control are unmatched."
+                                </blockquote>
+                                <p class="text-cyan-400 font-semibold">— TechEnthusiast_77 (<span class="text-xs text-gray-500">Enterprise Pilot</span>)</p>
+                            </div>
+                            
+                            <!-- Review Card 4 -->
+                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
+                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
+                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-20 overflow-hidden border-b border-gray-700">"Worth every penny. The minimalist design philosophy makes complex tasks feel intuitive. Truly premium."
+                                </blockquote>
+                                <p class="text-cyan-400 font-semibold">— Z. P. (<span class="text-xs text-gray-500">PRO User</span>)</p>
+                            </div>
+                        </div>
+
+                        <!-- REPEAT for seamless looping and symmetry -->
+                        <div class="flex space-x-8" aria-hidden="true">
+                            <!-- Review Card 1 (Duplicate) -->
+                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
+                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
+                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-20 overflow-hidden border-b border-gray-700">"The 3D tilt is a nice touch, but the core functionality is what matters. It's truly revolutionary. My productivity jumped 40%."</blockquote>
+                                <p class="text-cyan-400 font-semibold">— Alex D. (<span class="text-xs text-gray-500">PRO User</span>)</p>
+                            </div>
+
+                            <!-- Review Card 2 (Duplicate) -->
+                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
+                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
+                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-20 overflow-hidden border-b border-gray-700">"Sleekest UI I've ever seen on a utility tool. It feels illegal to use something this powerful and elegant."</blockquote>
+                                <p class="text-cyan-400 font-semibold">— CreativeAnon (<span class="text-xs text-gray-500">Standard User</span>)</p>
+                            </div>
+                            
+                            <!-- Review Card 3 (Duplicate) -->
+                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
+                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
+                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-20 overflow-hidden border-b border-gray-700">"I tried the competition, but GUILTY's Parallax depth and performance throttling control are unmatched."
+                                </blockquote>
+                                <p class="text-cyan-400 font-semibold">— TechEnthusiast_77 (<span class="text-xs text-gray-500">Enterprise Pilot</span>)</p>
+                            </div>
+                            
+                            <!-- Review Card 4 (Duplicate) -->
+                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
+                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
+                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-20 overflow-hidden border-b border-gray-700">"Worth every penny. The minimalist design philosophy makes complex tasks feel intuitive. Truly premium."
+                                </blockquote>
+                                <p class="text-cyan-400 font-semibold">— Z. P. (<span class="text-xs text-gray-500">PRO User</span>)</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Minimalist Footer -->
+        <footer class="py-10 text-center text-gray-500 text-sm border-t border-gray-800">
+            &copy; 2025 GUILTY. All Rights Reserved. | <span class="text-cyan-400">Guilty Pleasure. Ultimate Tool.</span>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript for Dynamic Effects (Parallax, 3D Tilt, and Guide Tabs) -->
+    <script>
+        
+        // --- 1. Parallax Scrolling Effect ---
+        
+        const parallaxElements = [
+            { element: document.getElementById('parallax-bg'), speed: 0.2 },
+            { element: document.getElementById('parallax-text'), speed: 0.8 },
+            { element: document.getElementById('parallax-visual'), speed: 0.5 }
+        ];
+
+        function applyParallax() {
+            // Get the current vertical scroll position
+            const scrollTop = window.pageYOffset; 
+            
+            // Only apply parallax on the Hero section content
+            const heroHeight = document.getElementById('hero').offsetHeight;
+
+            if (scrollTop < heroHeight) {
+                parallaxElements.forEach(item => {
+                    if (item.element) {
+                        // Calculate the offset based on scroll position and speed
+                        const offset = scrollTop * (1 - item.speed) * -0.2; 
+                        item.element.style.transform = `translateY(${offset}px)`;
+                    }
+                });
+            }
+        }
+
+        // --- 2. 3D Tilt Hover Effect (Only applied to Hero CTA and Product Cards) ---
+
+        function initTiltCards() {
+            const tiltCards = document.querySelectorAll('.tilt-card[data-tilt]');
+
+            tiltCards.forEach(card => {
+                // Listen for mouse movement over the card
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; 
+                    const y = e.clientY - rect.top;  
+                    const width = rect.width;
+                    const height = rect.height;
+
+                    // Normalize x and y to range from -0.5 to 0.5
+                    const normalizedX = (x / width) - 0.5;
+                    const normalizedY = (y / height) - 0.5;
+
+                    // Calculate rotation angles (scaled by 20 degrees max)
+                    const rotateY = normalizedX * 20; 
+                    const rotateX = normalizedY * -20; 
+                    
+                    // Apply the tilt transform
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                // Reset on mouse leave
+                card.addEventListener('mouseleave', () => {
+                    // Reset transform back to base state (no rotation, scale 1)
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+                });
+            });
+        }
+
+        // --- 3. Guide Tabs Functionality ---
+        
+        function initGuideTabs() {
+            const tabsContainer = document.getElementById('guide-tabs-container');
+            const contentContainer = document.getElementById('guide-content-container');
+            const tabs = tabsContainer ? tabsContainer.querySelectorAll('.guide-tab') : [];
+            const contents = contentContainer ? contentContainer.querySelectorAll('.guide-content') : [];
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (event) => {
+                    const tabId = tab.getAttribute('data-tab');
+
+                    // Deactivate all tabs and hide all content
+                    tabs.forEach(t => {
+                        t.classList.remove('active');
+                        t.querySelector('h3').classList.remove('text-cyan-400'); // Remove accent color from active header
+                        t.style.borderColor = '#030712'; // Reset border color for inactive tabs (Midnight Blue)
+                    });
+                    
+                    contents.forEach(content => {
+                        content.classList.add('hidden');
+                        content.style.opacity = '0'; // Ensure it starts transparent for fade in
+                    });
+
+                    // Activate the clicked tab and show corresponding content
+                    tab.classList.add('active');
+                    tab.querySelector('h3').classList.add('text-cyan-400'); // Add accent color to active header
+                    tab.style.borderColor = 'var(--cyan)'; // Set active border color
+                    
+                    const targetContent = document.querySelector(`.guide-content[data-content="${tabId}"]`);
+                    if (targetContent) {
+                        // Use a subtle fade-in transition
+                        targetContent.classList.remove('hidden');
+                        setTimeout(() => {
+                            targetContent.style.opacity = '1';
+                        }, 50); // Small delay to allow display change before opacity change
+                    }
+                });
+                
+                // Set initial active state for the first tab
+                if(tab.getAttribute('data-tab') === 'tab-1') {
+                    tab.classList.add('active');
+                    tab.querySelector('h3').classList.add('text-cyan-400');
+                    tab.style.borderColor = 'var(--cyan)';
+                    const content1 = document.querySelector('.guide-content[data-content="tab-1"]');
+                    if (content1) content1.style.opacity = '1';
+                }
+            });
+        }
+        
+        // --- 4. Run all event listeners on load ---
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initTiltCards();
+            initGuideTabs();
+            window.addEventListener('scroll', applyParallax);
+            applyParallax(); // Initial call to set positions
+        });
+        
+    </script>
+</body>
+</html>
