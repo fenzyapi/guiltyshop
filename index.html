@@ -1,18 +1,36 @@
+  <!-- 
+
+MADE BY FRENZY AND THE GUILTY TEAM
+ _____ ______   ________  ________  _______              ________      ___    ___         ________ ________  _______   ________   ________      ___    ___ 
+|\   _ \  _   \|\   __  \|\   ___ \|\  ___ \            |\   __  \    |\  \  /  /|       |\  _____\\   __  \|\  ___ \ |\   ___  \|\_____  \    |\  \  /  /|
+\ \  \\\__\ \  \ \  \|\  \ \  \_|\ \ \   __/|           \ \  \|\ /_   \ \  \/  / /       \ \  \__/\ \  \|\  \ \   __/|\ \  \\ \  \\|___/  /|   \ \  \/  / /
+ \ \  \\|__| \  \ \   __  \ \  \ \\ \ \  \_|/__          \ \   __  \   \ \    / /         \ \   __\\ \   _  _\ \  \_|/_\ \  \\ \  \   /  / /    \ \    / / 
+  \ \  \    \ \  \ \  \ \  \ \  \_\\ \ \  \_|\ \          \ \  \|\  \   \/  /  /           \ \  \_| \ \  \\  \\ \  \_|\ \ \  \\ \  \ /  /_/__    \/  /  /  
+   \ \__\    \ \__\ \__\ \__\ \_______\ \_______\          \ \_______\__/  / /              \ \__\   \ \__\\ _\\ \_______\ \__\\ \__\\________\__/  / /    
+    \|__|     \|__|\|__|\|__|\|_______|\|_______|           \|_______|\___/ /                \|__|    \|__|\|__|\|_______|\|__| \|__|\|_______|\___/ /     
+                                                                     \|___|/                                                                  \|___|/      
+                                                                                                                                                           
+                                                                                                                                                           -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO: Updated Title Tag -->
-    <title>GUILTY Zen Scripts - #1 No Recoil & Aim Assist for CoD, Apex</title>
+    <title>GUILTY Zen Scripts - #1 No Recoil & Aim Assist for CoD, Rust, Apex</title>
     
     <!-- NEW: Favicon Integration (using the Discord logo URL) -->
-    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1129468786089664553/1187930714591744070/discordmaybe.png?ex=68ea5c71&is=68e90af1&hm=f3e74e06c5ebe4f1ba6dd6da8d1f02d6c0500a3d2b916021a6ce4634256378f04&">
+    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1129468786089664553/1187930714591744070/discordmaybe.png?ex=68ea5c71&is=68e90af1&hm=f3e74e06c5ebe4f1ba6dd6da8d1f02d6c050a3d2b916021a6ce4634256378f04&">
     
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Inter font for clean modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- SELLAPP EMBED SCRIPTS (MANDATORY for modal functionality) -->
+    <script src="https://cdn.sell.app/embed/script.js" type="module"></script>
+    <link href="https://cdn.sell.app/embed/style.css" rel="stylesheet"/>
+
     <style>
         /* Define the futuristic color palette and typography */
         :root {
@@ -205,6 +223,27 @@
             border-bottom: 1px solid #374151; /* border-gray-700 */
             padding-bottom: 0.25rem; /* pb-1 */
         }
+        
+        /* FIX: Custom margin for sale badge to center it vertically/horizontally better */
+        .sale-badge-container {
+            /* Use flex for robust centering */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 2.5rem; /* Give it enough height to center badge */
+            margin-top: -0.75rem; /* Pull up to align with tilt card container */
+            margin-bottom: 0.5rem; 
+        }
+        
+        /* FIX: Ultimate badge centering container */
+        .ultimate-badge-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 2.5rem; /* Match the sale badge container height */
+            margin-top: -0.75rem; /* Align with the top of the card */
+            margin-bottom: 0.5rem; 
+        }
 
     </style>
 </head>
@@ -233,7 +272,7 @@
                 <a href="#tools" class="hover:text-cyan-400 transition duration-300">Pricing</a>
                 <a href="#faq" class="hover:text-cyan-400 transition duration-300">FAQ</a>
                 <a href="#contact" class="hover:text-cyan-400 transition duration-300">Contact</a>
-                <a href="#verdicts" class="hover:text-cyan-400 transition duration-300">Verdicts</a>
+                <!-- REMOVED: Verdicts link -->
 
                 <!-- JOIN COMMUNITY BUTTON -->
                 <a href="https://discord.gg/9ht3vqUkCm" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full font-bold transition discord-nav-button text-sm">
@@ -267,9 +306,9 @@
                     <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black leading-tight animate-hero-2">
                         GUILTY's Zero Recoil <span class="text-cyan-400">Zen Scripts.</span>
                     </h1>
-                    <!-- META DESCRIPTION INTEGRATION (SEO) -->
+                    <!-- META DESCRIPTION INTEGRATION (SEO) - Keywords bolded with span -->
                     <p class="text-gray-400 max-w-lg text-lg font-medium animate-hero-3">
-                        Unlock the power you shouldn't have. **GUILTY Zen Scripts** are engineered with **Zen Script** core technology for zero-lag performance and **aim assist** on consoles. Get the definitive edge today.
+                        Unlock the power you shouldn't have. <span class="font-black">GUILTY Zen Scripts</span> are engineered with <span class="font-black">Zen Script</span> core technology for zero-lag performance and <span class="font-black">aim assist</span> on consoles for games like **CoD, Rust, and Apex Legends**. Get the definitive edge today.
                     </p>
                     <!-- HERO CTA: Keeps tilt-card class for JS tilt -->
                     <a href="#tools" class="inline-block px-10 py-4 rounded-xl font-black uppercase tracking-wider cta-button tilt-card animate-hero-4" data-tilt>
@@ -301,14 +340,14 @@
                     <div class="p-6 bg-gray-900 rounded-xl hover:shadow-cyan transition duration-300 border border-gray-800 hover:border-cyan-400/50">
                         <svg class="w-10 h-10 text-cyan-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                         <h3 class="text-xl font-bold mb-2">Zero-Lag Protocol</h3>
-                        <p class="text-gray-400 text-sm">Optimized **ZenScript** ensures sub-millisecond execution, eliminating performance bottlenecks entirely for **no recoil** control.</p>
+                        <p class="text-gray-400 text-sm">Optimized <span class="font-extrabold">ZenScript</span> ensures sub-millisecond execution, eliminating performance bottlenecks entirely for <span class="font-extrabold">no recoil</span> control.</p>
                     </div>
                     
                     <!-- Feature 2: Cross-Platform -->
                     <div class="p-6 bg-gray-900 rounded-xl hover:shadow-cyan transition duration-300 border border-gray-800 hover:border-cyan-400/50">
                         <svg class="w-10 h-10 text-cyan-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18v-1.5m0-4.5v-1.5m0-4.5V3"></path></svg>
                         <h3 class="text-xl font-bold mb-2">Universal Compatibility</h3>
-                        <p class="text-gray-400 text-sm">Scripts are compiled for guaranteed performance across all major console platforms (PS, Xbox, PC) using **Cronus Zen setup**.</p>
+                        <p class="text-gray-400 text-sm">Scripts are compiled for guaranteed performance across all major console platforms (PS, Xbox, PC) using <span class="font-extrabold">Cronus Zen setup</span>.</p>
                     </div>
                     
                     <!-- Feature 3: Security -->
@@ -352,13 +391,13 @@
                         <!-- Tab 1: Initialization Protocol (Active by default) -->
                         <div class="guide-tab active bg-gray-950 p-6 rounded-xl border border-gray-950 shadow-xl" data-tab="tab-1">
                             <h3 class="text-xl font-bold text-cyan-400">01. Initialization Protocol</h3>
-                            <p class="text-sm mt-2 text-gray-400">The core, step-by-step guide to downloading **Zen Studio**, flashing your **GPC script**, and deploying to your console.</p>
+                            <p class="text-sm mt-2 text-gray-400">The core, step-by-step guide to downloading <span class="font-extrabold">Zen Studio</span>, flashing your <span class="font-extrabold">GPC script</span>, and deploying to your console.</p>
                         </div>
 
                         <!-- Tab 2: Advanced Automation -->
                         <div class="guide-tab bg-gray-950 p-6 rounded-xl border border-gray-950 hover:border-cyan-400/50 transition duration-300" data-tab="tab-2">
                             <h3 class="text-xl font-bold">02. Advanced Automation</h3>
-                            <p class="text-sm mt-2 text-gray-500">Focuses on configuring multiple scripts, setting custom profiles, and fine-tuning advanced parameters within **Zen Studio**.</p>
+                            <p class="text-sm mt-2 text-gray-500">Focuses on configuring multiple scripts, setting custom profiles, and fine-tuning advanced parameters within <span class="font-extrabold">Zen Studio</span>.</p>
                         </div>
 
                         <!-- Tab 3: Edge Case Scenarios -->
@@ -386,8 +425,8 @@
                             <h5 class="step-phase-title">Phase 1: PC Preparation & Synchronization</h5>
                             <ol class="list-decimal list-inside text-gray-400 mt-4 space-y-3 ml-4">
                                 <li><span class="text-cyan-400 font-semibold">Step 1: Acquire Zen Studio:</span> Install the latest official <a href="https://guide.cronus.support/downloads#" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline hover:text-cyan-300">Zen Studio software and update device firmware</a>.</li>
-                                <li><span class="text-cyan-400 font-semibold">Step 2: Retrieve GPC Script:</span> Download your purchased **GUILTY GPC script** (the `.GPC` file) from your dashboard and confirm compatibility.</li>
-                                <li><span class="text-cyan-400 font-semibold">Step 3: Connect & Flash:</span> Connect your **Cronus Zen** device to your PC via the **PROG** port, open Zen Studio, and drag the GPC script onto a blank **Memory Slot** for flashing.</li>
+                                <li><span class="text-cyan-400 font-semibold">Step 2: Retrieve GPC Script:</span> Download your purchased <span class="font-extrabold">GUILTY GPC script</span> (the `.GPC` file) from your dashboard and confirm compatibility.</li>
+                                <li><span class="text-cyan-400 font-semibold">Step 3: Connect & Flash:</span> Connect your <span class="font-extrabold">Cronus Zen</span> device to your PC via the <span class="font-extrabold">PROG</span> port, open <span class="font-extrabold">Zen Studio</span>, and drag the <span class="font-extrabold">GPC script</span> onto a blank <span class="font-extrabold">Memory Slot</span> for flashing.</li>
                             </ol>
 
                         </div>
@@ -405,9 +444,9 @@
                             <!-- Phase 1: Multi-Script Mapping -->
                             <h5 class="step-phase-title">Phase 1: Configuration Mapping & Parameters</h5>
                             <ol class="list-decimal list-inside text-gray-400 mt-4 space-y-3 ml-4">
-                                <li><span class="text-cyan-400 font-semibold">Step 1: Multi-Slot Mapping:</span> Allocate and flash all desired `.GPC` files into separate **Memory Slots** in Zen Studio's **Programmer** section for quick switching.</li>
-                                <li><span class="text-cyan-400 font-semibold">Step 2: Tune In-Script Parameters:</span> **Right-click** on the loaded script within Zen Studio to access and customize sensitive settings like sensitivity, rumble, and **no recoil** compensation.</li>
-                                <li><span class="text-cyan-400 font-semibold">Step 3: Verify Output Protocol:</span> Ensure the console output (PS5, Xbox, PC) is correctly selected as the **Output Protocol** to prevent input lag and synchronization issues.</li>
+                                <li><span class="text-cyan-400 font-semibold">Step 1: Multi-Slot Mapping:</span> Allocate and flash all desired <span class="font-extrabold">.GPC</span> files into separate <span class="font-extrabold">Memory Slots</span> in <span class="font-extrabold">Zen Studio's Programmer</span> section for quick switching.</li>
+                                <li><span class="text-cyan-400 font-semibold">Step 2: Tune In-Script Parameters:</span> <span class="font-extrabold">Right-click</span> on the loaded script within <span class="font-extrabold">Zen Studio</span> to access and customize sensitive settings like sensitivity, rumble, and <span class="font-extrabold">no recoil</span> compensation.</li>
+                                <li><span class="text-cyan-400 font-semibold">Step 3: Verify Output Protocol:</span> Ensure the console output (PS5, Xbox, PC) is correctly selected as the <span class="font-extrabold">Output Protocol</span> to prevent input lag and synchronization issues.</li>
                             </ol>
                         </div>
 
@@ -424,8 +463,8 @@
                             <!-- Phase 1: Diagnostic Readiness -->
                             <h5 class="step-phase-title">Phase 1: Live Monitoring & Validation</h5>
                             <ol class="list-decimal list-inside text-gray-400 mt-4 space-y-3 ml-4">
-                                <li><span class="text-cyan-400 font-semibold">Step 1: Monitor Console Output:</span> Connect via the **PROG** port, then access the **Zen Studio Device Monitor** to watch for script crashes or unexpected input cycles in real-time.</li>
-                                <li><span class="text-cyan-400 font-semibold">Step 2: Perform Clean Re-Flash:</span> If an issue persists, perform a **clean re-flash** of the memory slot to ensure the **Zen Script** is not corrupted and is running with default parameters.</li>
+                                <li><span class="text-cyan-400 font-semibold">Step 1: Monitor Console Output:</span> Connect via the <span class="font-extrabold">PROG</span> port, then access the <span class="font-extrabold">Zen Studio Device Monitor</span> to watch for script crashes or unexpected input cycles in real-time.</li>
+                                <li><span class="text-cyan-400 font-semibold">Step 2: Perform Clean Re-Flash:</span> If an issue persists, perform a <span class="font-extrabold">clean re-flash</span> of the memory slot to ensure the <span class="font-extrabold">Zen Script</span> is not corrupted and is running with default parameters.</li>
                                 <li><span class="text-cyan-400 font-semibold">Step 3: Clear Memory & Re-deploy:</span> Cycle through the Zen's onboard menu to clear the device's internal memory, then repeat the full deployment process with the console powered off for a hard reset.</li>
                             </ol>
                         </div>
@@ -445,7 +484,14 @@
                     <h3 class="text-3xl font-black text-white mb-1">Support Add-On</h3>
                     <p class="text-cyan-400 text-2xl font-black mb-3">$5 / lifetime</p>
                     <p class="text-gray-400 max-w-xl mx-auto text-lg">A one-time purchase for anyone (customer or not) to access basic, updated public script variations and general support.</p>
-                    <button class="w-full sm:w-auto mt-4 py-3 px-8 rounded-xl font-bold uppercase cta-button">PURCHASE ADD-ON</button>
+                    <!-- SellApp Button Integration for SUPPORT ADD-ON -->
+                    <button class="w-full sm:w-auto mt-4 py-3 px-8 rounded-xl font-bold uppercase cta-button"
+                        data-sell-store="61632"
+                        data-sell-product="331559"
+                        data-sell-theme=""
+                        data-sell-darkmode="true">
+                        PURCHASE ADD-ON
+                    </button>
                 </div>
 
 
@@ -453,11 +499,13 @@
                 <!-- RE-ORDERED BY PRICE: Standard ($20 SALE), PRO ($45), Enterprise ($75), Ultimate ($125) -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-                    <!-- Product Card 1: STANDARD ($20 SALE - FIXED) -->
+                    <!-- Product Card 1: STANDARD ($20 SALE - LINKED) -->
                     <!-- Price size adjusted for consistency and reorganized for aesthetics -->
                     <div class="bg-gray-950 rounded-xl p-6 tilt-card flash-sale-card" data-tilt>
                         <!-- NEW FLASH SALE Banner with Pulsating Effect - Positioned to center -->
-                        <div class="text-xs font-black uppercase tracking-widest bg-red-600 sale-badge-pulse text-white inline-block px-2 py-0.5 rounded-md mb-4 -mt-2 mx-auto block w-fit">FLASH SALE</div>
+                        <div class="sale-badge-container">
+                            <div class="text-xs font-black uppercase tracking-widest bg-red-600 sale-badge-pulse text-white inline-block px-2 py-0.5 rounded-md">FLASH SALE</div>
+                        </div>
 
                         <h3 class="text-3xl font-extrabold text-white mb-2">GUILTY / Standard</h3>
                         
@@ -474,231 +522,99 @@
                         </div>
                         
                         <!-- SEO Product Description -->
-                        <p class="text-gray-400 min-h-[5rem]">The essential core tool for **Cronus Zen** users. Includes the latest **no recoil Zen scripts** and automated version updates for life.</p>
+                        <p class="text-gray-400 min-h-[5rem]">The essential core tool for <span class="font-extrabold">Cronus Zen</span> users. Includes the latest <span class="font-extrabold">no recoil Zen scripts</span> and automated version updates for life.</p>
                         <ul class="text-sm text-gray-400 space-y-1 mt-4 border-t border-gray-700 pt-4 font-medium">
-                            <li>✓ All Scripts **(Lifetime License)**</li>
+                            <li>✓ All Scripts <span class="font-extrabold">(Lifetime License)</span></li>
                             <li>✓ Automated Version Updates</li>
                             <li>✓ Standard Support Protocol</li>
                         </ul>
-                        <!-- Button: Normalized height (py-3) -->
-                        <button class="w-full mt-6 py-3 rounded-xl font-bold uppercase cta-button">BUY NOW</button>
+                        <!-- SellApp Button Integration -->
+                        <button class="w-full mt-6 py-3 rounded-xl font-bold uppercase cta-button"
+                            data-sell-store="61632"
+                            data-sell-product="331554"
+                            data-sell-theme=""
+                            data-sell-darkmode="true">
+                            BUY NOW
+                        </button>
                     </div>
 
-                    <!-- Product Card 2: PRO ($45 One-time) -->
+                    <!-- Product Card 2: PRO ($45 One-time) - LINKED -->
                     <div class="bg-gray-900 rounded-xl p-6 tilt-card" data-tilt>
                         <h3 class="text-3xl font-extrabold text-white mb-2">GUILTY / PRO</h3>
                         <!-- Original price display format restored for non-sale items -->
                         <p class="text-cyan-400 text-xl font-bold mb-4">$45 / One-Time</p>
                         <!-- SEO Product Description -->
-                        <p class="text-gray-400 min-h-[5rem] font-medium">Elevate your game with **no recoil scripts** and exclusive support. Get all current **Cronus Zen scripts** and video guides.</p>
+                        <p class="text-gray-400 min-h-[5rem] font-medium">Elevate your game with <span class="font-extrabold">no recoil scripts</span> and exclusive support. Get all current <span class="font-extrabold">Cronus Zen scripts</span> and video guides.</p>
                         <ul class="text-sm text-gray-400 space-y-1 mt-4 border-t border-gray-700 pt-4 font-medium">
                             <li>✓ All Scripts Access</li>
-                            <li>✓ **One-on-One** Support</li>
+                            <li>✓ <span class="font-extrabold">One-on-One</span> Support</li>
                             <li>✓ Exclusive Video Guides</li>
                         </ul>
-                        <!-- Button: Normalized height (py-3) -->
-                        <button class="w-full mt-6 py-3 rounded-xl font-bold uppercase cta-button">BUY NOW</button>
+                        <!-- SellApp Button Integration -->
+                        <button class="w-full mt-6 py-3 rounded-xl font-bold uppercase cta-button"
+                            data-sell-store="61632"
+                            data-sell-product="331556"
+                            data-sell-theme=""
+                            data-sell-darkmode="true">
+                            BUY NOW
+                        </button>
                     </div>
 
-                    <!-- Product Card 3: Enterprise ($75 One-Time) -->
+                    <!-- Product Card 3: Enterprise ($75 One-Time) - LINKED -->
                     <div class="bg-gray-900 rounded-xl p-6 tilt-card" data-tilt>
                         <h3 class="text-3xl font-extrabold text-white mb-2">GUILTY / Enterprise</h3>
                         <p class="text-cyan-400 text-xl font-bold mb-4">$75 / One-Time</p>
                         <!-- SEO Product Description -->
-                        <p class="text-gray-400 min-h-[5rem]">Tailored **Cronus Zen setup** and custom script development. Ideal for teams needing a unique, branded Zen UI solution.</p>
+                        <p class="text-gray-400 min-h-[5rem]">Tailored <span class="font-extrabold">Cronus Zen setup</span> and custom script development. Ideal for teams needing a unique, branded Zen UI solution.</p>
                         <ul class="text-sm text-gray-400 space-y-1 mt-4 border-t border-gray-700 pt-4 font-medium">
                             <li>✓ Custom Game Creation (Possible)</li>
                             <li>✓ 3 Custom Redesigns</li>
-                            <li>✓ Custom **Zen UI** Implementation</li>
+                            <li>✓ Custom <span class="font-extrabold">Zen UI</span> Implementation</li>
                         </ul>
-                        <button class="w-full mt-6 py-3 rounded-xl font-bold uppercase cta-button">BUY NOW</button>
+                        <!-- SellApp Button Integration -->
+                        <button class="w-full mt-6 py-3 rounded-xl font-bold uppercase cta-button"
+                            data-sell-store="61632"
+                            data-sell-product="331557"
+                            data-sell-theme=""
+                            data-sell-darkmode="true">
+                            BUY NOW
+                        </button>
                     </div>
 
-                    <!-- Product Card 4: ULTIMATE ($125 One-Time) - REMAINS THE FEATURED TIER -->
+                    <!-- Product Card 4: ULTIMATE ($125 One-Time) - LINKED -->
                     <div class="bg-gray-950 rounded-xl p-6 shadow-2xl border-2 border-cyan-600 tilt-card" data-tilt>
-                        <div class="text-sm font-black uppercase tracking-widest bg-cyan-600 text-midnight inline-block px-3 py-1 rounded-full mb-3 -mt-2">ULTIMATE TIER</div>
+                        <!-- FIX: Ultimate badge centering using custom flexbox container -->
+                        <div class="ultimate-badge-container">
+                            <div class="text-sm font-black uppercase tracking-widest bg-cyan-600 text-midnight inline-block px-3 py-1 rounded-full">ULTIMATE TIER</div>
+                        </div>
+                        
                         <h3 class="text-4xl font-black text-white mb-2">GUILTY / Ultimate</h3>
                         <!-- UPDATED: Price changed to One-Time to maintain hierarchy -->
                         <p class="text-cyan-400 text-2xl font-black mb-4">$125 / One-Time</p>
                         <!-- SEO Product Description -->
-                        <p class="text-gray-400 min-h-[5rem] font-medium">The expert's arsenal. Complete toolkit with **75+ private and public Zen Scripts** (including **CoD/Warzone no recoil**), and personalized guidance.</p>
+                        <p class="text-gray-400 min-h-[5rem] font-medium">The expert's arsenal. Complete toolkit with <span class="font-extrabold">75+ private and public Zen Scripts</span> (including <span class="font-black text-cyan-400">CoD/Warzone no recoil</span>), and personalized guidance.</p>
                         <ul class="text-sm text-gray-300 space-y-1 mt-4 border-t border-cyan-400 pt-4 font-semibold">
-                            <li>✓ **75+ Public & Private Scripts**</li>
-                            <li>✓ **Dedicated 1:1 Guides & Support**</li>
+                            <li>✓ <span class="font-extrabold">75+ Public & Private Scripts</span></li>
+                            <li>✓ <span class="font-extrabold">Dedicated 1:1 Guides & Support</span></li>
                             <li>✓ Constant Updates & New Features</li>
                         </ul>
-                        <button class="w-full mt-6 py-3 rounded-xl font-black uppercase cta-button text-xl">BUY NOW</button>
+                        <!-- SellApp Button Integration for ULTIMATE -->
+                        <button class="w-full mt-6 py-3 rounded-xl font-black uppercase cta-button text-xl"
+                            data-sell-store="61632"
+                            data-sell-product="331558"
+                            data-sell-theme=""
+                            data-sell-darkmode="true">
+                            BUY NOW
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- D. Verdicts (Review Section) -->
-        <section id="verdicts" class="py-24 bg-gray-900">
-            <div class="max-w-7xl mx-auto px-6 md:px-12">
-                <!-- Added animated-header class -->
-                <h2 class="text-4xl md:text-5xl font-black mb-12 text-center tracking-tight animated-header" data-animate-id="verdicts-header">The <span class="text-cyan-400">Verdicts.</span> Social Proof.</h2>
-
-                <!-- Visually Striking Continuous Scrolling Carousel -->
-                <div class="overflow-hidden whitespace-nowrap py-4 relative">
-                    <div class="verdict-carousel inline-block w-max">
-
-                        <!-- Review Group 1: 8 Unique Reviews -->
-                        <div class="flex space-x-8">
-                            <!-- R1: Ultimate -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "The continuous update cycle alone justifies the price. I've switched from competitor products and the lag reduction with GUILTY's Zen Script is unbelievable. Highly recommended for serious competitors."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Alpha_Sixteen (<span class="text-xs text-gray-500">Ultimate User</span>)</p>
-                            </div>
-
-                            <!-- R2: Standard (Sale) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "I purchased the Standard tier during the flash sale, and the value is insane. Seamless installation using the guide, and the script quality is top-notch. It truly feels like cheating (in the best way)."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— CreativeAnon_Pro (<span class="text-xs text-gray-500">Standard User</span>)</p>
-                            </div>
-
-                            <!-- R3: Enterprise -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "The custom Zen UI design included with our Enterprise package standardized our entire team's setup. The development support was quick, professional, and tailored exactly to our niche game requirements. Unmatched service."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— P. Chen (<span class="text-xs text-gray-500">Enterprise Pilot</span>)</p>
-                            </div>
-
-                            <!-- R4: PRO -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "The one-on-one support with the PRO plan made the difference. I had a complex configuration issue, and the technician walked me through the solution in minutes. The videos also cover everything you need."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Z. P. (Zen Master) (<span class="text-xs text-gray-500">PRO User</span>)</p>
-                            </div>
-                            
-                            <!-- R5: Ultimate -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "The 75+ script library in Ultimate is overwhelming—in a good way. I'm constantly finding specialized utilities I didn't even know I needed. This is the expert toolkit I was looking for."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— GhostProtocol (<span class="text-xs text-gray-500">Ultimate User</span>)</p>
-                            </div>
-                            
-                            <!-- R6: PRO -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "Worth every single dollar. The minimalist aesthetic hides immense power. The setup guide is clear, and the performance is flawless across console generations. Truly a premium and essential tool."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Elite_Gamer_99 (<span class="text-xs text-gray-500">PRO User</span>)</p>
-                            </div>
-                            
-                            <!-- R7: Standard -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "Fantastic purchase. I was skeptical, but the quality control on the GPC scripts is obvious. They are clean, efficient, and never detected. This is how high-end Zen software should be built for the future."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Sentinel_Ops (<span class="text-xs text-gray-500">Standard User</span>)</p>
-                            </div>
-                            
-                            <!-- R8: Enterprise -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "As a developer, I appreciate the clean code structure. The ability to customize parameters in Zen Studio is vital. The Enterprise team even helped me implement a custom game creation feature for my side project."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Dev_J.S. (<span class="text-xs text-gray-500">Enterprise Pilot</span>)</p>
-                            </div>
-                        </div>
-
-                        <!-- Review Group 2 (Duplicate of R1-R8 for seamless looping) -->
-                        <div class="flex space-x-8" aria-hidden="true">
-                            <!-- R1: Ultimate (Duplicated) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "The continuous update cycle alone justifies the price. I've switched from competitor products and the lag reduction with GUILTY's Zen Script is unbelievable. Highly recommended for serious competitors."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Alpha_Sixteen (<span class="text-xs text-gray-500">Ultimate User</span>)</p>
-                            </div>
-
-                            <!-- R2: Standard (Sale) (Duplicated) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "I purchased the Standard tier during the flash sale, and the value is insane. Seamless installation using the guide, and the script quality is top-notch. It truly feels like cheating (in the best way)."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— CreativeAnon_Pro (<span class="text-xs text-gray-500">Standard User</span>)</p>
-                            </div>
-
-                            <!-- R3: Enterprise (Duplicated) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "The custom Zen UI design included with our Enterprise package standardized our entire team's setup. The development support was quick, professional, and tailored exactly to our niche game requirements. Unmatched service."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— P. Chen (<span class="text-xs text-gray-500">Enterprise Pilot</span>)</p>
-                            </div>
-
-                            <!-- R4: PRO (Duplicated) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "The one-on-one support with the PRO plan made the difference. I had a complex configuration issue, and the technician walked me through the solution in minutes. The videos also cover everything you need."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Z. P. (Zen Master) (<span class="text-xs text-gray-500">PRO User</span>)</p>
-                            </div>
-                            
-                            <!-- R5: Ultimate (Duplicated) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "The 75+ script library in Ultimate is overwhelming—in a good way. I'm constantly finding specialized utilities I didn't even know I needed. This is the expert toolkit I was looking for."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— GhostProtocol (<span class="text-xs text-gray-500">Ultimate User</span>)</p>
-                            </div>
-                            
-                            <!-- R6: PRO (Duplicated) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "Worth every single dollar. The minimalist aesthetic hides immense power. The setup guide is clear, and the performance is flawless across console generations. Truly a premium and essential tool."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Elite_Gamer_99 (<span class="text-xs text-gray-500">PRO User</span>)</p>
-                            </div>
-                            
-                            <!-- R7: Standard (Duplicated) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "Fantastic purchase. I was skeptical, but the quality control on the GPC scripts is obvious. They are clean, efficient, and never detected. This is how high-end Zen software should be built for the future."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Sentinel_Ops (<span class="text-xs text-gray-500">Standard User</span>)</p>
-                            </div>
-                            
-                            <!-- R8: Enterprise (Duplicated) -->
-                            <div class="inline-block w-80 p-6 bg-gray-950 rounded-xl border border-cyan-700/50 shadow-lg shrink-0">
-                                <div class="text-yellow-400 mb-3 text-lg space-x-0.5">★★★★★</div>
-                                <blockquote class="italic text-gray-300 pb-3 mb-3 h-24 overflow-hidden border-b border-gray-700">
-                                    "As a developer, I appreciate the clean code structure. The ability to customize parameters in Zen Studio is vital. The Enterprise team even helped me implement a custom game creation feature for my side project."
-                                </blockquote>
-                                <p class="text-cyan-400 font-bold">— Dev_J.S. (<span class="text-xs text-gray-500">Enterprise Pilot</span>)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- REMOVED: Verdicts Section (D) -->
         
-        <!-- NEW SECTION: FAQ - Frequently Asked Questions -->
-        <section id="faq" class="py-24 bg-charcoal">
+        <!-- NEW SECTION: FAQ - Frequently Asked Questions (Now Section D) -->
+        <section id="faq" class="py-24 bg-gray-900">
             <div class="max-w-7xl mx-auto px-6 md:px-12">
                 <h2 class="text-4xl md:text-5xl font-black mb-16 text-center tracking-tight animated-header" data-animate-id="faq-header">Frequently <span class="text-cyan-400">Asked.</span> Zero Confusion.</h2>
                 
@@ -706,24 +622,24 @@
                     <!-- FAQ Item 1 -->
                     <div class="bg-gray-900 p-6 rounded-xl border border-gray-700">
                         <h3 class="text-xl font-bold text-white mb-2">Are GUILTY Zen Scripts detectable by anti-cheat?</h3>
-                        <p class="text-gray-400">Our **GPC scripts** operate strictly at the hardware level via the Cronus Zen device, making them completely undetectable by standard software anti-cheat methods. We prioritize stealth and security for every update.</p>
+                        <p class="text-gray-400">Our <span class="font-extrabold">GPC scripts</span> operate strictly at the hardware level via the Cronus Zen device, making them completely undetectable by standard software anti-cheat methods. We prioritize stealth and security for every update.</p>
                     </div>
                     <!-- FAQ Item 2 -->
                     <div class="bg-gray-900 p-6 rounded-xl border border-gray-700">
                         <h3 class="text-xl font-bold text-white mb-2">Do I need my own Cronus Zen device to use these scripts?</h3>
-                        <p class="text-gray-400">Yes, the Cronus Zen hardware is mandatory. Our products are the **Zen Scripts** (software) designed to be flashed onto your device using the **Zen Studio** software.</p>
+                        <p class="text-gray-400">Yes, the Cronus Zen hardware is mandatory. Our products are the <span class="font-extrabold">Zen Scripts</span> (software) designed to be flashed onto your device using the <span class="font-extrabold">Zen Studio</span> software.</p>
                     </div>
                     <!-- FAQ Item 3 -->
                     <div class="bg-gray-900 p-6 rounded-xl border border-gray-700">
                         <h3 class="text-xl font-bold text-white mb-2">How quickly do you update scripts after a major game patch?</h3>
-                        <p class="text-gray-400">Our **Ultimate** tier offers priority updates, typically within 24-48 hours of a major console game patch (e.g., **CoD/Warzone**). Standard tiers receive updates within 72 hours.</p>
+                        <p class="text-gray-400">Our <span class="font-extrabold">Ultimate</span> tier offers priority updates, typically within 24-48 hours of a major console game patch (e.g., <span class="font-extrabold">CoD/Warzone</span> or <span class="font-extrabold">Rust</span>). Standard tiers receive updates within 72 hours.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- NEW SECTION: Contact Us -->
-        <section id="contact" class="py-24">
+        <!-- NEW SECTION: Contact Us (Now Section E) -->
+        <section id="contact" class="py-24 bg-charcoal">
             <div class="max-w-7xl mx-auto px-6 md:px-12">
                 <h2 class="text-4xl md:text-5xl font-black mb-16 text-center tracking-tight animated-header" data-animate-id="contact-header">Get <span class="text-cyan-400">In Touch.</span> Direct Support.</h2>
 
@@ -732,7 +648,8 @@
                         Need personalized assistance, custom script development, or have a pre-sales question? Reach out to our dedicated support team directly.
                     </p>
                     <div class="space-y-4">
-                        <p class="text-cyan-400 text-2xl font-black">support@guiltyzen.com</p>
+                        <!-- NOTE: Official Domain is zenscripts.pro -->
+                        <p class="text-cyan-400 text-2xl font-black">support@zenscripts.pro</p>
                         <a href="https://discord.gg/9ht3vqUkCm" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-gray-400 hover:text-cyan-400 transition duration-300">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M20.211 4.391c-.812-.55-1.928-.902-3.212-.902-1.972 0-3.376.657-4.199 1.583-.822-.926-2.227-1.583-4.199-1.583-1.284 0-2.4.352-3.212.902C4.606 5.094 4 6.136 4 7.424V14c0 3.313 2.687 6 6 6s6-2.687 6-6V7.424c0-1.288-.606-2.33-1.39-3.033zm-4.392 10.609c-2.485 0-4.5-2.015-4.5-4.5s2.015-4.5 4.5-4.5 4.5 2.015 4.5 4.5-2.015 4.5-4.5 4.5zM12 4.5C10.669 4.5 9.5 5.669 9.5 7s1.169 2.5 2.5 2.5 2.5-1.169 2.5-2.5S13.331 4.5 12 4.5z"/></svg>
                             Join Our Discord Server
@@ -743,14 +660,14 @@
         </section>
 
 
-        <!-- Minimalist Footer (Updated with Policy and Payments) -->
+        <!-- Final Minimalist Trust and Policy Footer -->
         <footer class="bg-gray-950 border-t border-gray-800">
             <div class="max-w-7xl mx-auto px-6 md:px-12 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm text-gray-400">
                 
                 <!-- Col 1: Brand & Copyright -->
                 <div class="col-span-2 md:col-span-1 space-y-3">
                     <p class="text-xl font-black text-white">GUILTY.</p>
-                    <p>&copy; 2025 GUILTY. All Rights Reserved.</p>
+                    <p>&copy; 2025 GUILTY. All Rights Reserved. | <span class="font-black">zenscripts.pro</span></p>
                     <p class="text-xs">Guilty Pleasure. Ultimate Tool.</p>
                 </div>
 
@@ -766,27 +683,16 @@
                 </div>
 
                 <!-- Col 3: Payment Methods -->
-                <div class="space-y-3">
+                <div class="space-y-3 col-span-2 md:col-span-2">
                     <h4 class="text-base font-bold text-white mb-2">Secure Payments</h4>
                     <p>We accept major secure payment methods:</p>
                     <div class="flex flex-wrap gap-2 text-3xl">
                         <!-- Placeholder Icons for Payment Methods (using common font awesome classes or icons) -->
-                        <span title="Visa">&#xe7a3;</span> <!-- Placeholder for Visa/Card Icon -->
-                        <span title="Mastercard">&#xe79c;</span> <!-- Placeholder for Mastercard/Card Icon -->
-                        <span title="PayPal">&#xe792;</span> <!-- Placeholder for PayPal Icon -->
-                        <span title="Crypto">&#xe7c3;</span> <!-- Placeholder for Bitcoin/Crypto Icon -->
+                        <span title="Visa">&#xe7a3;</span> 
+                        <span title="Mastercard">&#xe79c;</span> 
+                        <span title="PayPal">&#xe792;</span> 
+                        <span title="Crypto">&#xe7c3;</span> 
                     </div>
-                </div>
-                
-                <!-- Col 4: Quick Links -->
-                <div class="space-y-3">
-                    <h4 class="text-base font-bold text-white mb-2">Quick Navigation</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#features" class="hover:text-cyan-400 transition duration-300">Core Capabilities</a></li>
-                        <li><a href="#guide" class="hover:text-cyan-400 transition duration-300">Deployment Guide</a></li>
-                        <li><a href="#tools" class="hover:text-cyan-400 transition duration-300">All Pricing Tiers</a></li>
-                        <li><a href="#contact" class="hover:text-cyan-400 transition duration-300">Support & Sales</a></li>
-                    </ul>
                 </div>
             </div>
         </footer>
