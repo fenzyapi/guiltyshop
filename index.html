@@ -3,187 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUILTY - Data Stream</title>
-    <!-- Load Inter font from Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>GUILTY - Sharp & Modern</title>
+    <!-- Load Inter font from Google Fonts --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom Tailwind Configuration and Base Styles */
         :root {
-            --neon-color-primary: #a353ff; /* Deep Purple Neon */
-            --neon-color-secondary: #00ffff; /* Cyan/Aqua Neon */
-            --dark-bg: #030303;
-            --matrix-code-color: #a353ff; /* Base color for the falling code */
-            --matrix-code-flash: #00ffff; /* Highlight color for code */
+            --primary-text-color: #f0f0f0; /* Near-white for main text */
+            --secondary-text-color: #b0b0b0; /* Light gray for secondary text */
+            --dark-background: #0d0d0d; /* Very dark almost black */
+            --mid-background: #252525; /* Dark grey for contrast */
+            --accent-color: #808080; /* Neutral grey for subtle highlights */
         }
 
         body {
-            font-family: 'Inter', monospace; /* Use a monospace font for the code effect */
-            background-color: var(--dark-bg);
-            cursor: crosshair;
-            overflow: hidden; 
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-background);
+            overflow: hidden; /* Hide scrollbars for full-screen canvas */
+            cursor: default;
         }
 
-        /* Canvas setup for the Matrix Rain background */
-        #matrix-canvas {
+        /* WebGL Canvas for background animation */
+        #webgl-canvas {
             position: fixed;
             top: 0;
             left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: 1; /* Behind the content */
-            pointer-events: none; /* Allows clicks to pass through to the body/content */
+            pointer-events: none; /* Allows clicks to pass through */
         }
-        
-        /* --- Text Styling (Static Neon Look) --- */
-        
-        .guilty-text {
-            color: var(--neon-color-primary);
-            /* Static, high-intensity neon look using text-shadow for glow */
-            text-shadow: 0 0 1.5rem var(--neon-color-primary), 
-                         0 0 5rem var(--neon-color-primary),
-                         0 0 10rem rgba(163, 83, 255, 0.5);
-            filter: brightness(1.2); /* Ensure it looks bright */
-            line-height: 1; 
+
+        /* Main Content Overlay */
+        .content-overlay {
             position: relative;
-            display: inline-block;
+            z-index: 20; /* Above the canvas */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 1rem;
         }
-        
+
+        /* GUILTY Text Styling */
+        .guilty-text {
+            color: var(--primary-text-color);
+            text-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.5); /* Sharp, subtle shadow */
+            line-height: 1;
+        }
+
+        /* Coming Soon Text */
         .verdict-pending {
-            color: #b0b0b0; /* Bright gray for clarity */
+            color: var(--secondary-text-color);
+            transition: opacity 1s ease-in;
         }
 
         /* Discord Button Styling */
         .discord-button {
-            background-color: var(--neon-color-primary);
-            color: var(--dark-bg);
-            box-shadow: 0 0 10px var(--neon-color-primary), 0 0 20px rgba(163, 83, 255, 0.5);
-            border: 2px solid var(--neon-color-primary);
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background-color: var(--mid-background);
+            color: var(--primary-text-color);
+            border: 1px solid var(--accent-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+            transform-origin: center; /* Ensure scale from center */
         }
 
         .discord-button:hover {
-            transform: scale(1.08);
-            background-color: var(--dark-bg);
-            color: var(--neon-color-secondary);
-            border-color: var(--neon-color-secondary);
-            box-shadow: 0 0 15px var(--neon-color-secondary), 0 0 30px rgba(0, 255, 255, 0.8);
+            background-color: var(--accent-color);
+            color: var(--dark-background);
+            border-color: var(--primary-text-color);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
     </style>
+    <!-- Three.js CDN for WebGL animations --><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body class="bg-gray-900">
-    
-    <!-- Animated Matrix Background Canvas -->
-    <canvas id="matrix-canvas"></canvas>
+<body>
+    <!-- WebGL Canvas for background animation --><canvas id="webgl-canvas"></canvas>
 
-    <!-- Main Content (z-index 20 ensures it sits above the canvas) -->
-    <div class="flex items-center justify-center min-h-screen relative z-20">
+    <!-- Main Content --><div class="content-overlay">
         <main class="text-center p-4 max-w-4xl w-full">
-            <!-- Main Static Neon Text -->
-            <h1 class="text-8xl md:text-[12rem] lg:text-[15rem] xl:text-[20rem] font-extrabold tracking-tighter uppercase leading-none relative">
-                <span class="guilty-text block">GUILTY</span>
+            <!-- Main Static GUILTY Text (Black, White, Grey) --><h1 class="text-8xl md:text-[12rem] lg:text-[15rem] xl:text-[20rem] font-extrabold tracking-tighter uppercase guilty-text">
+                GUILTY
             </h1>
 
-            <!-- Coming Soon Static Text with Fade-in Effect -->
-            <p id="coming-soon" class="text-xl sm:text-3xl mt-6 tracking-widest uppercase opacity-0 transition-opacity duration-1000 ease-in verdict-pending">
+            <!-- Coming Soon Text --><p id="coming-soon" class="text-xl sm:text-3xl mt-6 tracking-widest uppercase opacity-0 verdict-pending">
                 // VERDICT PENDING //
             </p>
 
-            <!-- Discord Button -->
-            <a id="discord-link" href="https://discord.gg/9ht3vqUkCm" target="_blank" class="mt-12 inline-block px-10 py-4 text-xl font-bold rounded-xl discord-button transition-all duration-300 transform scale-0">
+            <!-- Discord Button --><a id="discord-link" href="https://discord.gg/9ht3vqUkCm" target="_blank" class="mt-12 inline-block px-10 py-4 text-xl font-bold rounded-xl discord-button opacity-0 scale-0 transition-all duration-700 ease-out">
                 Join the Council (Discord)
             </a>
         </main>
     </div>
 
     <script>
-        // --- MATRIX RAIN ANIMATION LOGIC ---
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        let columns, drops;
+        // --- THREE.JS BACKGROUND ANIMATION LOGIC ---
+        let scene, camera, renderer, particles;
+        let mouseX = 0, mouseY = 0;
+        let windowHalfX = window.innerWidth / 2;
+        let windowHalfY = window.innerHeight / 2;
 
-        // Characters set (Kanji and numbers for a classic look)
-        const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_~[]{}';
-        const fontSize = 16;
+        function initThreeJS() {
+            const canvas = document.getElementById('webgl-canvas');
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0); // Transparent background
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            columns = Math.floor(canvas.width / fontSize);
-            // Re-initialize drops array when resized
-            drops = Array(columns).fill(1);
-        }
+            camera.position.z = 200; // Adjust camera distance
 
-        function drawMatrix() {
-            // Semi-transparent background redraw to create the fade/trail effect
-            // Changed opacity from 0.05 to 0.08 to make the trail more visible and persistent.
-            ctx.fillStyle = 'rgba(3, 3, 3, 0.08)'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Create particles
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            const colors = [];
 
-            ctx.font = `${fontSize}px monospace`;
+            const particleCount = 2000;
+            const radius = 150;
 
-            for (let i = 0; i < drops.length; i++) {
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
+            for (let i = 0; i < particleCount; i++) {
+                // Spherical distribution
+                const phi = Math.acos(Math.random() * 2 - 1);
+                const theta = Math.random() * Math.PI * 2;
                 
-                const char = characters[Math.floor(Math.random() * characters.length)];
-                
-                // Color logic: The drop head is brighter/cyan, the trail is base purple
-                if (drops[i] * fontSize > canvas.height * 0.95) {
-                    ctx.fillStyle = 'var(--matrix-code-flash)'; // Flash near the bottom
-                } else if (drops[i] % 15 === 0) {
-                    ctx.fillStyle = 'var(--neon-color-secondary)'; // Brighter Cyan head
-                } else {
-                    ctx.fillStyle = 'var(--matrix-code-color)'; // Base Purple
-                }
+                vertices.push(
+                    radius * Math.sin(phi) * Math.cos(theta),
+                    radius * Math.sin(phi) * Math.sin(theta),
+                    radius * Math.cos(phi)
+                );
 
-                ctx.fillText(char, x, y);
-
-                // Sending the drop back to the top once it's out of view
-                if (y * fontSize > canvas.height && Math.random() > 0.98) {
-                    drops[i] = 0;
-                }
-
-                // Incrementing the drop coordinate (speed control)
-                drops[i]++;
+                // Grey colors with slight variation
+                const color = new THREE.Color();
+                const greyValue = (Math.random() * 0.3) + 0.3; // 0.3 to 0.6 for shades of grey
+                color.setRGB(greyValue, greyValue, greyValue);
+                colors.push(color.r, color.g, color.b);
             }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({ 
+                size: 1.5, 
+                vertexColors: true, 
+                transparent: true, 
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending // Makes particles blend nicely
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+            window.addEventListener('resize', onWindowResize, false);
         }
 
-        // Set up resize listener and initial size
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas(); 
-        
-        // Use a controlled frame rate for the Matrix effect
-        let lastTime = 0;
-        const fps = 30;
-        const interval = 1000 / fps;
-
-        function animate(timestamp) {
-            if (timestamp - lastTime > interval) {
-                lastTime = timestamp;
-                drawMatrix();
-            }
-            requestAnimationFrame(animate);
+        function onDocumentMouseMove(event) {
+            mouseX = (event.clientX - windowHalfX) * 0.5;
+            mouseY = (event.clientY - windowHalfY) * 0.5;
         }
 
-        // --- SEQUENTIAL UI LOAD LOGIC (for the fade-in/scale-up) ---
-        // Changed initialization to window.onload for greater reliability
+        function onWindowResize() {
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animateThreeJS() {
+            requestAnimationFrame(animateThreeJS);
+
+            // Rotate particles slowly
+            particles.rotation.x += 0.0005;
+            particles.rotation.y += 0.0007;
+
+            // Camera movement based on mouse
+            camera.position.x += (mouseX - camera.position.x) * 0.005;
+            camera.position.y += (-mouseY - camera.position.y) * 0.005;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        // --- SEQUENTIAL UI LOAD LOGIC ---
         window.onload = () => {
+            initThreeJS();
+            animateThreeJS(); // Start the WebGL animation
+
             const comingSoon = document.getElementById('coming-soon');
             const discordLink = document.getElementById('discord-link');
 
-            // 1. Start the Matrix background immediately
-            animate(0);
-
-            // 2. Fade in the 'Coming Soon' text after a pause
+            // Fade in 'Coming Soon' text
             setTimeout(() => {
                 comingSoon.classList.remove('opacity-0');
                 comingSoon.classList.add('opacity-100');
             }, 1000); 
 
-            // 3. Scale up the Discord button after a slightly longer pause
+            // Scale up Discord button
             setTimeout(() => {
-                discordLink.classList.remove('scale-0');
-                discordLink.classList.add('scale-100');
+                discordLink.classList.remove('opacity-0', 'scale-0');
+                discordLink.classList.add('opacity-100', 'scale-100');
             }, 2000);
         };
     </script>
