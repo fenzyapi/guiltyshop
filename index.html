@@ -15,6 +15,12 @@
             --accent-color: #808080; /* Neutral grey for subtle highlights */
         }
 
+        html, body {
+            width: 100%; /* FIX: Ensure full width */
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--dark-background);
@@ -82,7 +88,9 @@
 <body>
     <!-- WebGL Canvas for background animation --><canvas id="webgl-canvas"></canvas>
 
-    <!-- Main Content --><div class="content-overlay">
+    <!-- Main Content -->
+    <!-- FIX: Added w-full to ensure the container stretches across the screen -->
+    <div class="content-overlay w-full">
         <main class="text-center p-4 max-w-4xl w-full">
             <!-- Main Static GUILTY Text (Black, White, Grey) --><h1 class="text-8xl md:text-[12rem] lg:text-[15rem] xl:text-[20rem] font-extrabold tracking-tighter uppercase guilty-text">
                 GUILTY
