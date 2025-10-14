@@ -3,218 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUILTY - Sharp & Modern</title>
-    <!-- Load Inter font from Google Fonts --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <title>RUST CONSOLE: FINAL JUDGEMENT</title>
+    <!-- Tailwind CSS is included here to ensure basic reset and utility support, though custom CSS is prioritized for the heavy theming -->
+    <script src="https://cdn.tailwindcss.com"></script> 
     <style>
+        /* BASE & THEME */
         :root {
-            --primary-text-color: #f0f0f0; /* Near-white for main text */
-            --secondary-text-color: #b0b0b0; /* Light gray for secondary text */
-            --dark-background: #0d0d0d; /* Very dark almost black */
-            --mid-background: #252525; /* Dark grey for contrast */
-            --accent-color: #808080; /* Neutral grey for subtle highlights */
+            --color-black: #000000;
+            --color-red: #ff0000;
+            --color-green: #39ff14; /* Neon Green */
+            --color-yellow: #f8ff00; /* Glitchy Yellow */
+            --font-mono: 'Cousine', monospace; /* A good terminal-style font */
         }
 
-        html, body {
-            width: 100%; /* FIX: Ensure full width */
-            margin: 0;
-            padding: 0;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&display=swap');
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--dark-background);
-            overflow: hidden; /* Hide scrollbars for full-screen canvas */
-            cursor: default;
-        }
-
-        /* WebGL Canvas for background animation */
-        #webgl-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1; /* Behind the content */
-            pointer-events: none; /* Allows clicks to pass through */
-        }
-
-        /* Main Content Overlay */
-        .content-overlay {
-            position: relative;
-            z-index: 20; /* Above the canvas */
+            background-color: var(--color-black);
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAG0lEQVQIW2NkYGBoYGAAggsGBkUgGgwgwgAAMzABAEq8A0XW/dJpAAAAAElFTkSuQmCC');
+            /* Noise/Static pattern */
+            color: var(--color-green);
+            font-family: var(--font-mono);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.5); /* Subtle neon glow */
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 1rem;
         }
 
-        /* GUILTY Text Styling */
-        .guilty-text {
-            color: var(--primary-text-color);
-            text-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.5); /* Sharp, subtle shadow */
+        /* UTILITY & ANIMATIONS */
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 5px var(--color-green);
+                opacity: 1;
+            }
+            20%, 55% {
+                opacity: 0.8;
+                transform: skewX(-5deg);
+                text-shadow: none;
+            }
+            24%, 56% {
+                opacity: 0.9;
+                text-shadow: 0 0 10px var(--color-yellow);
+                transform: translateX(1px);
+            }
+        }
+
+        .flicker {
+            animation: flicker 4s infinite alternate;
+        }
+
+        @keyframes text-jitter {
+            0%, 100% { transform: translate(0, 0); }
+            5% { transform: translate(-1px, 1px); color: var(--color-yellow); }
+            10% { transform: translate(2px, -2px); }
+            15% { transform: translate(0, 0); }
+            /* More quick, subtle jolts */
+            40% { transform: translate(-0.5px, 0.5px); }
+            41% { transform: translate(0.5px, -0.5px); }
+            42% { transform: translate(0, 0); }
+        }
+
+        .text-jitter {
+            display: inline-block;
+            animation: text-jitter 5s infinite;
+        }
+
+        /* HEADER & BANNER */
+        .header-top {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-red);
+            color: var(--color-black);
+            padding: 5px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid var(--color-yellow);
+            z-index: 1000;
+        }
+
+        .main-banner {
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--color-red);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .banner-title {
+            font-size: clamp(2.5em, 8vw, 4em);
+            font-weight: 900;
+            color: var(--color-red);
             line-height: 1;
         }
 
-        /* Coming Soon Text */
-        .verdict-pending {
-            color: var(--secondary-text-color);
-            transition: opacity 1s ease-in;
+        .target-id {
+            font-size: clamp(1.2em, 4vw, 1.5em);
+            color: var(--color-yellow);
+            margin-top: 10px;
         }
 
-        /* Discord Button Styling */
-        .discord-button {
-            background-color: var(--mid-background);
-            color: var(--primary-text-color);
-            border: 1px solid var(--accent-color);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease-in-out;
-            transform-origin: center; /* Ensure scale from center */
+        .ban-icon {
+            font-size: 5em;
+            color: var(--color-red);
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+            animation: pulse-red 1s infinite alternate;
         }
 
-        .discord-button:hover {
-            background-color: var(--accent-color);
-            color: var(--dark-background);
-            border-color: var(--primary-text-color);
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        @keyframes pulse-red {
+            from {
+                opacity: 0.8;
+                text-shadow: 0 0 20px var(--color-red);
+            }
+            to {
+                opacity: 1;
+                text-shadow: 0 0 30px var(--color-red);
+            }
+        }
+
+        /* MAIN CONTENT - THE JUDGEMENT */
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .scanner-effect {
+            /* JS will handle the vertical movement, this is the style */
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 30px; /* Make it thicker like a true scanner bar */
+            background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.05) 80%, transparent 100%);
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.5;
+            display: none; /* Hidden by default */
+        }
+
+        .judgement-post {
+             padding: 10px;
+             position: relative;
+             z-index: 10; /* Ensure text is above scanner */
+        }
+
+        .judgement-post h2 {
+            color: var(--color-red);
+            font-size: 1.8em;
+            margin-top: 40px;
+            border-bottom: 1px dashed var(--color-yellow);
+            padding-bottom: 5px;
+        }
+
+        .judgement-post p {
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .charge-header {
+            color: var(--color-yellow);
+            font-weight: bold;
+            margin-top: 25px;
+            display: block;
+        }
+
+        .charge-code {
+            color: var(--color-red);
+            font-weight: bold;
+        }
+
+        .intro-text, .concluding-statement {
+            font-style: italic;
+            color: var(--color-green);
+        }
+
+        /* ANIMATED STATS PANEL */
+        .stats-panel {
+            border: 3px solid var(--color-red);
+            padding: 20px;
+            margin: 50px auto;
+            max-width: 600px;
+            animation: border-flash 1s infinite steps(1);
+        }
+
+        @keyframes border-flash {
+            0% { border-color: var(--color-red); }
+            50% { border-color: var(--color-yellow); }
+            100% { border-color: var(--color-red); }
+        }
+
+        .stats-panel h3 {
+            color: var(--color-yellow);
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 1.1em;
+            flex-wrap: wrap; /* Ensure responsiveness */
+        }
+
+        .stat-value {
+            color: var(--color-red);
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .health-bar-container {
+            background-color: #333;
+            height: 20px;
+            margin-top: 5px;
+            border: 1px solid var(--color-red);
+        }
+
+        .health-bar-fill {
+            width: 0%; /* Permanently 0% */
+            height: 100%;
+            background-color: var(--color-red);
+            text-align: center;
+            font-size: 0.8em;
+            color: var(--color-black);
+            line-height: 20px;
+            animation: critical-flash 0.5s infinite alternate;
+        }
+
+        @keyframes critical-flash {
+            from { opacity: 1; }
+            to { opacity: 0.5; }
+        }
+
+        .rotten-food-gif {
+            display: block;
+            margin: 20px auto 0;
+            width: 150px;
+            height: 150px;
+            background-color: var(--color-black); 
+            border: 2px solid var(--color-yellow);
+            text-align: center;
+            line-height: 150px;
+            font-weight: bold;
+            font-size: 0.8em;
+            color: var(--color-red);
+            animation: spin 3s infinite linear;
+            position: relative;
+            box-shadow: 0 0 10px var(--color-red);
+        }
+        
+        /* Simulating the low-res GIF of food */
+        .rotten-food-gif::before {
+            content: "💀"; /* Skull emoji for rotten/death */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            line-height: 1;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* CALL TO ACTION / FOOTER */
+        .cta-container {
+            text-align: center;
+            margin: 50px 0;
+            padding-top: 30px;
+            border-top: 1px dashed var(--color-red);
+        }
+
+        .report-button {
+            background-color: var(--color-red);
+            color: var(--color-black);
+            border: 5px solid var(--color-yellow);
+            padding: 20px 40px;
+            font-size: clamp(1.5em, 6vw, 2em);
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            animation: button-pulse 1.5s infinite alternate;
+            transition: transform 0.1s;
+            border-radius: 0; /* Sharp edges for max drama */
+        }
+
+        .report-button:hover {
+            box-shadow: 0 0 40px rgba(255, 0, 0, 1);
+        }
+        
+        .report-button:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes button-pulse {
+            from {
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            }
+            to {
+                box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+            }
+        }
+
+        .report-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--color-black);
+            border: 3px solid var(--color-red);
+            color: var(--color-red);
+            padding: 30px 40px;
+            font-size: clamp(1em, 5vw, 1.5em);
+            z-index: 2000;
+            display: none; /* Hidden by default */
+            box-shadow: 0 0 15px var(--color-red);
+            text-align: center;
+        }
+
+        .footer-scroll {
+            white-space: nowrap;
+            overflow: hidden;
+            border-top: 1px solid var(--color-green);
+            padding: 5px 0;
+            margin-top: 50px;
+        }
+
+        .scroll-text {
+            display: inline-block;
+            color: var(--color-green);
+            font-size: 0.9em;
+            padding-left: 100%;
+            animation: scroll-footer 15s infinite linear;
+        }
+
+        @keyframes scroll-footer {
+            from { transform: translateX(0%); }
+            to { transform: translateX(-100%); }
         }
     </style>
-    <!-- Three.js CDN for WebGL animations --><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <!-- WebGL Canvas for background animation --><canvas id="webgl-canvas"></canvas>
-
-    <!-- Main Content -->
-    <!-- FIX: Added w-full to ensure the container stretches across the screen -->
-    <div class="content-overlay w-full">
-        <main class="text-center p-4 max-w-4xl w-full">
-            <!-- Main Static GUILTY Text (Black, White, Grey) --><h1 class="text-8xl md:text-[12rem] lg:text-[15rem] xl:text-[20rem] font-extrabold tracking-tighter uppercase guilty-text">
-                GUILTY
-            </h1>
-
-            <!-- Coming Soon Text --><p id="coming-soon" class="text-xl sm:text-3xl mt-6 tracking-widest uppercase opacity-0 verdict-pending">
-                // VERDICT PENDING //
-            </p>
-
-            <!-- Discord Button --><a id="discord-link" href="https://discord.gg/9ht3vqUkCm" target="_blank" class="mt-12 inline-block px-10 py-4 text-xl font-bold rounded-xl discord-button opacity-0 scale-0 transition-all duration-700 ease-out">
-                Join the Council (Discord)
-            </a>
-        </main>
+    <!-- 2. Header: The Announcement -->
+    <div class="header-top">
+        [RUST CONSOLE EDITION COMMUNITY NOTICE | <span class="flicker">ERROR 404: PLAYER NOT FOUND</span>]
     </div>
 
+    <div class="main-banner">
+        <div class="banner-title">
+            ACCOUNT TERMINATED
+        </div>
+        <div class="target-id">
+            Target ID: <span class="text-jitter">Llewy639</span>
+        </div>
+        <div class="ban-icon" role="img" aria-label="Giant Blinking Red Ban Hammer Icon">
+            &#9876; <!-- Gavel icon unicode -->
+        </div>
+    </div>
+
+    <!-- 3. The Community Post Body (The Detailed Banning) -->
+    <div class="content-container">
+        <!-- The Scanner Effect Element -->
+        <div id="scanner" class="scanner-effect"></div>
+
+        <div class="judgement-post">
+            <p><strong>Date of Judgement:</strong> <span class="flicker">OCTOBER 14, 2025</span></p>
+            <p><strong>Subject Line:</strong> PERMANENT EXPULSION: <span class="text-jitter">LLEWY639</span> (Violations of Code: 404, 24/7, and Zero Hygiene)</p>
+            
+            <p class="intro-text">
+                "The Double Eleven Moderation Team regrets to inform the community that effective immediately, the account <span class="text-jitter">Llewy639</span> has been permanently removed from all official Rust Console Edition servers. This is a **non-appealable judgement**."
+            </p>
+
+            <span class="charge-header">Formal Charge I (The Scamming)</span>
+            <p><span class="charge-code">Charge Code 1.4b: Exploitation of Low-Level Assets.</span> "Evidence confirms the systematic use of emotional blackmail to obtain in-game currency from fresh spawns, including but not limited to, holding their 2x1 wooden bases hostage with a single Eoka pistol and demanding **'The contents of your real-world piggy bank.'**"</p>
+
+            <span class="charge-header">Formal Charge II (The Slurs)</span>
+            <p><span class="charge-code">Charge Code 2.3a: Extreme Verbal Toxicity.</span> "Player <span class="text-jitter">Llewy639</span> was recorded using an unauthorized and highly disruptive voice command: **'I just offlined your whole base while eating a bowl of cereal.'** The resulting psychological damage to victims is immeasurable."</p>
+
+            <span class="charge-header">Formal Charge III (The Personal Joke)</span>
+            <p><span class="charge-code">Charge Code 3.9c: Violation of Fundamental Human Necessity.</span> "Our system logs indicate a consistent daily online time of **23 Hours, 57 Minutes, and 12 Seconds** over the last 90-day period. This suggests a critical failure to engage in basic survival actions, including Sleep, Hydration, and—most critically—**Showering**. The player's current digital footprint violates the game's **'Don't Stink Up the Server'** policy."</p>
+
+            <p class="concluding-statement">
+                "The servers are now safer, and likely smell better. We thank the community for their reports and patience."
+            </p>
+        </div>
+    </div>
+
+    <!-- 4. Animated Statistics Panel -->
+    <div class="stats-panel">
+        <h3><span class="flicker">LLEWY639</span>: ANOMALY STATS</h3>
+        <hr style="border-color: var(--color-red);">
+
+        <!-- Time Since Last Shower (JS Counter) -->
+        <div class="stat-line">
+            <span class="stat-label">Time Since Last Shower:</span>
+            <span class="stat-value" id="shower-time">00 Days, 00 Hours, 00 Minutes</span>
+        </div>
+
+        <!-- Bags Under Eyes (Health Bar) -->
+        <div class="stat-line">
+            <span class="stat-label">Bags Under Eyes (In-Game Health):</span>
+            <span class="stat-value flicker">CRITICAL</span>
+        </div>
+        <div class="health-bar-container">
+            <!-- Health bar fill is permanently at 0% -->
+            <div class="health-bar-fill"></div> 
+        </div>
+
+        <!-- Total Raids Avoided (JS Counter) -->
+        <div class="stat-line">
+            <span class="stat-label">Total Raids Avoided by Being Online:</span>
+            <span class="stat-value" id="raid-counter">1,452</span>
+        </div>
+        
+        <div class="rotten-food-gif">
+            Llewy639's Dinner
+        </div>
+    </div>
+
+    <!-- 5. Call to Action / Footer -->
+    <div class="cta-container">
+        <button id="report-btn" class="report-button">
+            REPORT PLAYER
+        </button>
+    </div>
+
+    <!-- Overlay Message (Hidden by default) -->
+    <div id="report-message" class="report-overlay">
+        CANNOT REPORT: TARGET IS ALREADY BANNED. <span class="flicker">GO OUTSIDE.</span>
+    </div>
+
+    <div class="footer-scroll">
+        <div class="scroll-text">
+            Server Stability Restored... Commence Wipe Countdown... <span class="text-jitter">Llewy639.exe Closed.</span> &nbsp;&nbsp;&nbsp; [ACCESS LOGS: DENIED] &nbsp;&nbsp;&nbsp; SECTOR 7G CLEAR &nbsp;&nbsp;&nbsp; Server Stability Restored... Commence Wipe Countdown... Llewy639.exe Closed. &nbsp;&nbsp;&nbsp; [ACCESS LOGS: DENIED] &nbsp;&nbsp;&nbsp; SECTOR 7G CLEAR
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT FOR ANIMATIONS -->
     <script>
-        // --- THREE.JS BACKGROUND ANIMATION LOGIC ---
-        let scene, camera, renderer, particles;
-        let mouseX = 0, mouseY = 0;
-        let windowHalfX = window.innerWidth / 2;
-        let windowHalfY = window.innerHeight / 2;
+        document.addEventListener('DOMContentLoaded', () => {
+            const showerTime = document.getElementById('shower-time');
+            const raidCounter = document.getElementById('raid-counter');
+            const reportButton = document.getElementById('report-btn');
+            const reportMessage = document.getElementById('report-message');
+            const healthBar = document.querySelector('.health-bar-fill');
+            const contentContainer = document.querySelector('.content-container');
+            const scanner = document.getElementById('scanner');
 
-        function initThreeJS() {
-            const canvas = document.getElementById('webgl-canvas');
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setClearColor(0x000000, 0); // Transparent background
+            // --- 4. Animated Statistics Panel - JS Logic ---
+            
+            // Set Health Bar to 0% and force text (already done in CSS, but good for clarity)
+            healthBar.style.width = '0%';
+            
+            // "Time Since Last Shower" Counter
+            let minutes = 0;
+            const showerInterval = setInterval(() => {
+                minutes++;
+                const hours = Math.floor(minutes / 60);
+                const days = Math.floor(hours / 24);
+                const remainingHours = hours % 24;
+                const remainingMinutes = minutes % 60;
 
-            camera.position.z = 200; // Adjust camera distance
+                const pad = (num) => String(num).padStart(2, '0');
 
-            // Create particles
-            const geometry = new THREE.BufferGeometry();
-            const vertices = [];
-            const colors = [];
+                showerTime.textContent = `${pad(days)} Days, ${pad(remainingHours)} Hours, ${pad(remainingMinutes)} Minutes`;
+            }, 500); // Counts up every half second for a frantic effect
 
-            const particleCount = 2000;
-            const radius = 150;
+            // "Total Raids Avoided" Counter (Start at 1,452 and count up quickly)
+            let raidsAvoided = 1452;
+            let targetRaids = 1587; // Arbitrary final target for rapid counting
+            const raidInterval = setInterval(() => {
+                if (raidsAvoided < targetRaids) {
+                    raidsAvoided += Math.floor(Math.random() * 5) + 1; // Count up randomly
+                    raidCounter.textContent = raidsAvoided.toLocaleString();
+                } else {
+                    clearInterval(raidInterval);
+                    raidCounter.textContent = targetRaids.toLocaleString();
+                }
+            }, 50);
 
-            for (let i = 0; i < particleCount; i++) {
-                // Spherical distribution
-                const phi = Math.acos(Math.random() * 2 - 1);
-                const theta = Math.random() * Math.PI * 2;
+            // --- 5. Call to Action / Footer - JS Logic ---
+
+            // The Big Red Button Click Action
+            reportButton.addEventListener('click', () => {
+                // To simulate the sound effect, we'll use a visual cue and console log (since external audio loading is restricted)
+                console.log("DIGITIZED SIGH SOUND EFFECT PLAYED.");
                 
-                vertices.push(
-                    radius * Math.sin(phi) * Math.cos(theta),
-                    radius * Math.sin(phi) * Math.sin(theta),
-                    radius * Math.cos(phi)
-                );
+                // Show the overlay
+                reportMessage.style.display = 'block';
 
-                // Grey colors with slight variation
-                const color = new THREE.Color();
-                const greyValue = (Math.random() * 0.3) + 0.3; // 0.3 to 0.6 for shades of grey
-                color.setRGB(greyValue, greyValue, greyValue);
-                colors.push(color.r, color.g, color.b);
-            }
-
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-            const material = new THREE.PointsMaterial({ 
-                size: 1.5, 
-                vertexColors: true, 
-                transparent: true, 
-                opacity: 0.8,
-                blending: THREE.AdditiveBlending // Makes particles blend nicely
+                // Hide the overlay after a few seconds
+                setTimeout(() => {
+                    reportMessage.style.display = 'none';
+                }, 4000);
             });
 
-            particles = new THREE.Points(geometry, material);
-            scene.add(particles);
 
-            document.addEventListener('mousemove', onDocumentMouseMove, false);
-            window.addEventListener('resize', onWindowResize, false);
-        }
+            // --- 1. Overall Theme & UI/UX - Scanner Effect JS Logic ---
+            scanner.style.display = 'block';
+            let scanPos = 0;
+            
+            function animateScanner() {
+                // Get the current height of the content to ensure the scanner covers the whole area
+                const contentHeight = contentContainer.scrollHeight;
 
-        function onDocumentMouseMove(event) {
-            mouseX = (event.clientX - windowHalfX) * 0.5;
-            mouseY = (event.clientY - windowHalfY) * 0.5;
-        }
+                // Move 2px down, loop 20px past the bottom
+                scanPos = (scanPos + 2) % (contentHeight + 20); 
+                scanner.style.height = `${contentHeight}px`; // Adjust height dynamically if content changes (good practice)
+                scanner.style.top = `${scanPos - contentHeight}px`; 
 
-        function onWindowResize() {
-            windowHalfX = window.innerWidth / 2;
-            windowHalfY = window.innerHeight / 2;
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+                // Loop the animation
+                requestAnimationFrame(animateScanner);
+            }
 
-        function animateThreeJS() {
-            requestAnimationFrame(animateThreeJS);
-
-            // Rotate particles slowly
-            particles.rotation.x += 0.0005;
-            particles.rotation.y += 0.0007;
-
-            // Camera movement based on mouse
-            camera.position.x += (mouseX - camera.position.x) * 0.005;
-            camera.position.y += (-mouseY - camera.position.y) * 0.005;
-            camera.lookAt(scene.position);
-
-            renderer.render(scene, camera);
-        }
-
-        // --- SEQUENTIAL UI LOAD LOGIC ---
-        window.onload = () => {
-            initThreeJS();
-            animateThreeJS(); // Start the WebGL animation
-
-            const comingSoon = document.getElementById('coming-soon');
-            const discordLink = document.getElementById('discord-link');
-
-            // Fade in 'Coming Soon' text
-            setTimeout(() => {
-                comingSoon.classList.remove('opacity-0');
-                comingSoon.classList.add('opacity-100');
-            }, 1000); 
-
-            // Scale up Discord button
-            setTimeout(() => {
-                discordLink.classList.remove('opacity-0', 'scale-0');
-                discordLink.classList.add('opacity-100', 'scale-100');
-            }, 2000);
-        };
+            // Start the scanner after the page loads
+            requestAnimationFrame(animateScanner);
+        });
     </script>
 </body>
 </html>
